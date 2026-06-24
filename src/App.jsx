@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef, useMemo, Suspense, lazy } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform, useInView } from 'framer-motion';
-import { Globe, Camera, Cpu, Server, MapPin, Mail, Phone, ExternalLink, HardDrive, Network, Workflow, X, Terminal as TerminalIcon, Code, Github, Linkedin, Download, FileText, Send, CheckCircle, GitCommit, GitBranch, Activity, Wifi, Database, Moon, Sun, Volume2, VolumeX } from 'lucide-react';
+import { Globe, Camera, Cpu, Server, MapPin, Mail, Phone, ExternalLink, HardDrive, Network, Workflow, X, Terminal as TerminalIcon, Code, Github, Linkedin, Download, FileText, Send, CheckCircle, GitCommit, GitBranch, Activity, Wifi, Database, Moon, Sun, Volume2, VolumeX, Menu } from 'lucide-react';
 import Lenis from '@studio-freight/lenis';
 import { ReactFlow, Background } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
@@ -597,6 +597,7 @@ const App = () => {
   const [theme, setTheme] = useState('cyber');
   const [isMuted, setIsMuted] = useState(false);
   const [cmdPaletteOpen, setCmdPaletteOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     globalIsMuted = isMuted;
@@ -701,7 +702,7 @@ const App = () => {
               Ashiq Muneeb
               <motion.div title="Open to Work" animate={{ scale: [1, 1.2, 1], opacity: [0.6, 1, 0.6] }} transition={{ repeat: Infinity, duration: 2 }} style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#2ecc71', marginLeft: '0.5rem' }} />
             </div>
-            {!isMobile && (
+            {!isMobile ? (
               <div style={{ display: 'flex', alignItems: 'center', gap: '3rem' }}>
                 <div style={{ display: 'flex', gap: '2rem', fontWeight: 600, fontSize: '0.95rem' }}>
                   <a href="#about" onMouseEnter={playHover}>About</a>
@@ -718,8 +719,36 @@ const App = () => {
                   <Globe size={16} /> Connect
                 </motion.a>
               </div>
+            ) : (
+              <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                <button onClick={() => setTheme(t => t === 'cyber' ? 'light' : 'cyber')} className="btn btn-pill" style={{ padding: '0.4rem', borderRadius: '50%' }}>
+                  {theme === 'cyber' ? <Sun size={18} /> : <Moon size={18} />}
+                </button>
+                <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="btn btn-pill" style={{ padding: '0.4rem', borderRadius: '50%', background: mobileMenuOpen ? 'var(--accent-glow-strong)' : 'transparent', color: mobileMenuOpen ? '#fff' : textColor }}>
+                  {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+                </button>
+              </div>
             )}
           </nav>
+
+          <AnimatePresence>
+            {isMobile && mobileMenuOpen && (
+              <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} style={{ position: 'fixed', top: '70px', left: 0, width: '100%', background: theme === 'cyber' ? 'rgba(15, 15, 20, 0.98)' : 'rgba(248, 249, 250, 0.98)', backdropFilter: 'blur(20px)', borderBottom: '1px solid rgba(150,150,150,0.1)', zIndex: 99, padding: '2rem', display: 'flex', flexDirection: 'column', gap: '1.5rem', alignItems: 'center', boxShadow: '0 20px 40px rgba(0,0,0,0.2)' }}>
+                <a href="#about" onClick={() => setMobileMenuOpen(false)} style={{ fontSize: '1.2rem', fontWeight: 600 }}>About</a>
+                <a href="#architectures" onClick={() => setMobileMenuOpen(false)} style={{ fontSize: '1.2rem', fontWeight: 600 }}>Architectures</a>
+                <a href="#case-studies" onClick={() => setMobileMenuOpen(false)} style={{ fontSize: '1.2rem', fontWeight: 600 }}>Case Studies</a>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginTop: '1rem', paddingBottom: '1rem', borderBottom: '1px solid rgba(150,150,150,0.1)', width: '100%', justifyContent: 'center' }}>
+                  <span style={{ color: '#888' }}>Sound Effects:</span>
+                  <button onClick={() => setIsMuted(m => !m)} className="btn btn-pill" style={{ padding: '0.5rem', borderRadius: '50%' }}>
+                    {isMuted ? <VolumeX size={20} /> : <Volume2 size={20} />}
+                  </button>
+                </div>
+                <a href="#contact" onClick={() => setMobileMenuOpen(false)} className="btn btn-pill" style={{ fontWeight: 600, fontSize: '1.1rem', background: 'var(--accent-glow-strong)', color: '#fff', width: '100%', justifyContent: 'center' }}>
+                  <Globe size={16} /> Connect
+                </a>
+              </motion.div>
+            )}
+          </AnimatePresence>
 
           <section style={{ position: 'relative', minHeight: '100vh', display: 'flex', alignItems: 'center', paddingTop: '100px', paddingBottom: '60px', overflow: 'hidden' }}>
             {/* 3D Background Injection */}
