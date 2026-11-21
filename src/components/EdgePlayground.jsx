@@ -255,7 +255,11 @@ export default function EdgePlayground({ isMobile, theme = "light" }) {
       </div>
 
       {/* Preset Benchmark Pills */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', flexWrap: 'wrap', marginBottom: '1.8rem' }}>
+      <div
+        role="tablist"
+        aria-label="Preset Benchmark Queries"
+        style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', flexWrap: 'wrap', marginBottom: '1.8rem' }}
+      >
         <span style={{ fontSize: '0.78rem', color: isLight ? '#3C493A' : '#aaa', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '5px' }}>
           <Sparkles size={13} color="var(--accent-glow-strong)" /> Benchmark Queries:
         </span>
@@ -264,10 +268,26 @@ export default function EdgePlayground({ isMobile, theme = "light" }) {
           return (
             <button
               type="button"
+              role="tab"
+              aria-selected={isSelected}
+              aria-label={`Select benchmark query: ${preset}`}
               key={idx}
               onClick={() => {
                 setQuery(preset);
                 setActivePreset(preset);
+              }}
+              onKeyDown={(e) => {
+                if (e.key === 'ArrowRight') {
+                  e.preventDefault();
+                  const next = (idx + 1) % SAMPLE_BENCHMARKS.length;
+                  setQuery(SAMPLE_BENCHMARKS[next]);
+                  setActivePreset(SAMPLE_BENCHMARKS[next]);
+                } else if (e.key === 'ArrowLeft') {
+                  e.preventDefault();
+                  const prev = (idx - 1 + SAMPLE_BENCHMARKS.length) % SAMPLE_BENCHMARKS.length;
+                  setQuery(SAMPLE_BENCHMARKS[prev]);
+                  setActivePreset(SAMPLE_BENCHMARKS[prev]);
+                }
               }}
               style={{
                 background: isSelected
@@ -297,7 +317,7 @@ export default function EdgePlayground({ isMobile, theme = "light" }) {
       </div>
 
       {/* Vector Results Grid */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
+      <div role="region" aria-live="polite" aria-label="Vector similarity match results" style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
         <AnimatePresence>
           {results.slice(0, 4).map((item, index) => {
             const isTop = index === 0;
