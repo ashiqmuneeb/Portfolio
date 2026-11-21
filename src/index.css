@@ -1,0 +1,237 @@
+:root {
+  --bg-color: #E5E8CE;
+  --text-color: #1C1D20;
+  --text-muted: #535C50;
+  --accent-glow: rgba(120, 149, 117, 0.4);
+  --accent-glow-strong: #789575;
+  --card-bg: rgba(255, 255, 255, 0.85);
+  --card-border: rgba(120, 149, 117, 0.28);
+}
+
+[data-theme="cyber"] {
+  --bg-color: #0a0a0f;
+  --text-color: #f0f0f5;
+  --text-muted: #888888;
+  --accent-glow: rgba(235, 100, 52, 0.5);
+  --accent-glow-strong: #eb6434;
+  --card-bg: rgba(25, 25, 30, 0.75);
+  --card-border: rgba(150, 150, 150, 0.12);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  line-height: 1.5;
+  overflow-x: hidden;
+  background-color: #E5E8CE;
+  color: #1C1D20;
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  *, *::before, *::after {
+    cursor: none !important;
+  }
+  input, textarea, select, [contenteditable="true"] {
+    cursor: text !important;
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Outfit', sans-serif;
+}
+
+a,
+button {
+  text-decoration: none;
+  color: inherit;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+/* Preloader */
+.preloader {
+  position: fixed;
+  inset: 0;
+  background-color: #151914;
+  color: #E5E8CE;
+  z-index: 20000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Outfit', sans-serif;
+}
+
+/* Terminal Component */
+.terminal-window {
+  width: 400px;
+  height: 300px;
+  background: rgba(247, 249, 241, 0.96);
+  border: 1px solid rgba(120, 149, 117, 0.35);
+  border-radius: 14px;
+  backdrop-filter: blur(16px);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 20px 45px rgba(120, 149, 117, 0.15);
+}
+
+.terminal-header {
+  background: rgba(120, 149, 117, 0.12);
+  padding: 0.8rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(120, 149, 117, 0.2);
+  font-family: monospace;
+  font-size: 0.85rem;
+  color: #1C1D20;
+}
+
+.terminal-body {
+  padding: 1rem;
+  flex: 1;
+  overflow-y: auto;
+  font-family: monospace;
+  font-size: 0.9rem;
+  color: #2D3E2B;
+}
+
+.noise-bg {
+  position: relative;
+}
+
+.noise-bg::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.025'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 50;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-pill {
+  padding: 0.8rem 1.5rem;
+  border: 1px solid currentColor;
+  border-radius: 50px;
+  transition: all 0.25s ease;
+}
+
+.btn-pill:hover {
+  background: var(--accent-glow-strong);
+  color: #fff !important;
+  border-color: var(--accent-glow-strong);
+  transform: translateY(-2px);
+}
+
+/* Overlay & Modals */
+.overlay-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(18, 22, 17, 0.7);
+  backdrop-filter: blur(8px);
+  z-index: 9000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overscroll-behavior: contain;
+}
+
+.project-modal {
+  width: 90%;
+  max-width: 820px;
+  max-height: 90vh;
+  background: #F7F9F1;
+  color: #1C1D20;
+  border-radius: 24px;
+  padding: 3.5rem;
+  z-index: 9001;
+  overflow-y: auto !important;
+  overscroll-behavior: contain !important;
+  -webkit-overflow-scrolling: touch;
+  box-shadow: 0 30px 80px rgba(28, 29, 32, 0.25);
+  border: 1.5px solid rgba(120, 149, 117, 0.35);
+  position: relative;
+}
+
+.project-modal::-webkit-scrollbar {
+  width: 8px;
+}
+.project-modal::-webkit-scrollbar-track {
+  background: rgba(120, 149, 117, 0.08);
+  border-radius: 8px;
+}
+.project-modal::-webkit-scrollbar-thumb {
+  background: rgba(120, 149, 117, 0.4);
+  border-radius: 8px;
+}
+.project-modal::-webkit-scrollbar-thumb:hover {
+  background: rgba(120, 149, 117, 0.7);
+}
+
+[data-theme="cyber"] .project-modal {
+  background: #121212;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8);
+}
+
+.project-modal-close {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  color: inherit;
+  background: rgba(120, 149, 117, 0.15);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+  cursor: pointer;
+}
+
+.project-modal-close:hover {
+  background: rgba(120, 149, 117, 0.3);
+}
+
+/* Mobile Optimizations - eliminate backdrop blur on mobile devices */
+@media (max-width: 768px) {
+  .terminal-window,
+  nav,
+  .overlay-backdrop,
+  .flip-card-wrapper > div > div {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+}
