@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ashiqmuneebc.vercel.app/sitemap.xml

@@ -1,0 +1,17 @@
+{
+  "name": "Ashiq Muneeb | AI Systems Engineer & System Architect",
+  "short_name": "Ashiq Muneeb",
+  "description": "Portfolio of Ashiq Muneeb specializing in LangGraph Autonomous Agents, Edge AI (26 TOPS NPU), and High-Concurrency Backends.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#E5E8CE",
+  "theme_color": "#789575",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
